@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class EnemyCrowdController : CrowdBase
 {
-    private void Update()
+    [SerializeField] private int enemyCrowdAmount;
+
+    private void Start()
     {
-        //FOR TESTING
-        if (Input.GetKeyDown(KeyCode.E))
+        StartCoroutine(GenerateEnemyGroupWithDelay());
+    }
+
+    private IEnumerator GenerateEnemyGroupWithDelay()
+    {
+        yield return new WaitForSeconds(1);
+
+        for (int i = 0; i < enemyCrowdAmount; i++)
         {
-            for (int i = 0; i < 20; i++)
-            {
-                GameObject obj = ObjectPooler.Instance.GetObjectFromPool(StickmanType.EnemyStickman);
-                obj.transform.parent = this.transform;
-                obj.transform.localPosition = Vector3.zero;
-                stickmanList.Add(obj.GetComponent<StickmanController>());
-            }
-            CreateFormation(stickmanList);
+            GameObject obj = ObjectPooler.Instance.GetObjectFromPool(StickmanType.EnemyStickman);
+            obj.transform.parent = this.transform;
+            obj.transform.localPosition = Vector3.zero;
+            stickmanList.Add(obj.GetComponent<StickmanController>());
         }
+        CreateFormation(stickmanList);
     }
 }

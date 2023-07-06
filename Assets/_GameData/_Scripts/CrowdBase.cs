@@ -19,7 +19,7 @@ public abstract class CrowdBase : MonoBehaviour
             float x = distanceFactor * Mathf.Sqrt(i) * Mathf.Cos(i * radius);
             float z = distanceFactor * Mathf.Sqrt(i) * Mathf.Sin(i * radius);
             tempPos = new Vector3(x, 0, z);
-            stickmanList[i].transform.DOMove(tempPos , .2f).SetEase(Ease.Flash); 
+            stickmanList[i].transform.DOLocalMove(tempPos , .2f).SetEase(Ease.Flash); 
         }
     }
 
