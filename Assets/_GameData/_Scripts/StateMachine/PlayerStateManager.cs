@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStateManager : MonoBehaviour
 {
-    
+    //-------------------------// STATES //-------------------------//
     public PlayerIdleState idleState = new PlayerIdleState();
     public PlayerRunState runState = new PlayerRunState();
     public PlayerFightState fightState = new PlayerFightState();
@@ -12,7 +13,19 @@ public class PlayerStateManager : MonoBehaviour
     public PlayerWinState winState = new PlayerWinState();
     public PlayerFailState failState = new PlayerFailState();
     private PlayerBaseState currentState;
+    //-------------------------// STATES //-------------------------//
 
+    private PlayerMovementController playerMovementController;
+
+    private void Awake()
+    {
+        playerMovementController = GetComponent<PlayerMovementController>();
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.OnGameStarted += OnGameStartedHandler;
+    }
 
     private void Start()
     {
@@ -23,6 +36,13 @@ public class PlayerStateManager : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
+
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EventManager.Instance.RaiseGameStarted();
+        }
+#endif
     }
 
     public void SwitchState(PlayerBaseState newState)
@@ -34,5 +54,11 @@ public class PlayerStateManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnterState(this, other);
+    }
+
+    private void OnGameStartedHandler()
+    {
+        playerMovementController.ActivateMovement();
+        SwitchState(runState); //When the first click occurs by the user, player switches to run state.
     }
 }

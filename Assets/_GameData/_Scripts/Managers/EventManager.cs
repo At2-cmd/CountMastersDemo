@@ -17,4 +17,7 @@ public class EventManager : MonoBehaviour
 	public event Action OnGameStarted;
 	public void RaiseGameStarted() => OnGameStarted?.Invoke();
 
+    public event Action OnRunStateEntered;
+    public void RaiseRunStateEntered() => OnRunStateEntered?.Invoke();
+
 }

@@ -12,10 +12,13 @@ public class PlayerMovementController : MonoBehaviour
     private bool isMousePressed;
     private float targetSwerveAmount;
     private float currentSwerveAmount;
+    private bool canMove = false;
 
 
     private void Update()
     {
+        if (!canMove) return;
+
         // Move the object forward
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
@@ -44,5 +47,10 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 newPosition = transform.position + new Vector3(currentSwerveAmount * swerveSpeed * Time.deltaTime, 0f, 0f);
         newPosition.x = Mathf.Clamp(newPosition.x, minXPosition, maxXPosition);
         transform.position = newPosition;
+    }
+
+    public void ActivateMovement()
+    {
+        canMove = true;
     }
 }

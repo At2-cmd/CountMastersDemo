@@ -6,7 +6,7 @@ public class PlayerRunState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        
+        EventManager.Instance.RaiseRunStateEntered();
     }
 
     public override void ExitState(PlayerStateManager player)
