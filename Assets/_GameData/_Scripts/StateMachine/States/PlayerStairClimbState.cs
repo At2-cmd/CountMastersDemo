@@ -6,7 +6,7 @@ public class PlayerStairClimbState : PlayerBaseState
 {
     public override void EnterState(PlayerStateManager player)
     {
-        
+        EventManager.Instance.RaiseFinishPointReached();
     }
 
     public override void ExitState(PlayerStateManager player)

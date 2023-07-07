@@ -28,6 +28,7 @@ public class StickmanController : MonoBehaviour
         //-----------------------//
         if (stickmanType != StickmanType.AllyStickman) return; // EnemyStickmans do not have to subscribe and listen these events.
         EventManager.Instance.OnRunStateEntered += OnRunStateEnteredHandler;
+        EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
     }
 
     private void OnDisable()
@@ -35,8 +36,10 @@ public class StickmanController : MonoBehaviour
         EventManager.Instance.OnGameFailed -= OnGameFailedHandler;
         //-----------------------//
         if (stickmanType != StickmanType.AllyStickman) return; // EnemyStickmans should not unsubscribe these events, because they have never been subscribed.
-        EventManager.Instance.OnRunStateEntered -= OnRunStateEnteredHandler;
+        EventManager.Instance.OnRunStateEntered -= OnRunStateEnteredHandler; 
+        EventManager.Instance.OnFinishPointReached -= OnFinishPointReachedHandler;
     }
+
 
     private void Awake()
     {
@@ -53,6 +56,12 @@ public class StickmanController : MonoBehaviour
     private void OnGameFailedHandler()
     {
         _animController.PlayAnim(PlayerAnimController.Victory);
+    }
+
+
+    private void OnFinishPointReachedHandler()
+    {
+        _animController.PlayAnim(PlayerAnimController.Idle);
     }
 
     private void OnTriggerEnter(Collider other)

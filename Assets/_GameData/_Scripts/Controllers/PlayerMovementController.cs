@@ -21,6 +21,7 @@ public class PlayerMovementController : MovementBase
         EventManager.Instance.OnFightStarted += OnFightStartedHandler;
         EventManager.Instance.OnFightWon += OnFightWonHandler;
         EventManager.Instance.OnGameFailed += OnGameFailedHandler;
+        EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
     }
 
     private void OnFightStartedHandler(Vector3 targetDirection)
@@ -40,6 +41,11 @@ public class PlayerMovementController : MovementBase
     private void OnGameFailedHandler()
     {
         StopCoroutine(moveToTargetRoutine);
+    }
+
+    private void OnFinishPointReachedHandler()
+    {
+        canMove = false;
     }
 
     private void Update()
