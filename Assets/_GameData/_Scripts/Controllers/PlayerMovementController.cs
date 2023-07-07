@@ -1,6 +1,8 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : MovementBase
 {
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float swerveSpeed;
@@ -14,6 +16,30 @@ public class PlayerMovementController : MonoBehaviour
     private float currentSwerveAmount;
     private bool canMove = false;
 
+    private void OnEnable()
+    {
+        EventManager.Instance.OnFightStarted += OnFightStartedHandler;
+        EventManager.Instance.OnFightWon += OnFightWonHandler;
+        EventManager.Instance.OnGameFailed += OnGameFailedHandler;
+    }
+
+    private void OnFightStartedHandler(Vector3 targetDirection)
+    {
+        canMove = false;
+        transform.forward = targetDirection - transform.position;
+        moveToTargetRoutine = StartCoroutine(MoveToFightTarget(targetDirection, 3));
+    }
+
+    private void OnFightWonHandler()
+    {
+        canMove = true;
+        StopCoroutine(moveToTargetRoutine);
+    }
+
+    private void OnGameFailedHandler()
+    {
+        StopCoroutine(moveToTargetRoutine);
+    }
 
     private void Update()
     {

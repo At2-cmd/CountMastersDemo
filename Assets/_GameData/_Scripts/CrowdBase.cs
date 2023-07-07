@@ -11,7 +11,6 @@ public abstract class CrowdBase : MonoBehaviour
     [Range(0,1)] [SerializeField] protected float radius;
     private Vector3 tempPos;
 
-
     protected virtual void CreateFormation(List<StickmanController> stickmanList)
     {
         for (int i = 0; i < stickmanList.Count; i++)
@@ -19,9 +18,33 @@ public abstract class CrowdBase : MonoBehaviour
             float x = distanceFactor * Mathf.Sqrt(i) * Mathf.Cos(i * radius);
             float z = distanceFactor * Mathf.Sqrt(i) * Mathf.Sin(i * radius);
             tempPos = new Vector3(x, 0, z);
-            stickmanList[i].transform.DOLocalMove(tempPos , .2f).SetEase(Ease.Flash); 
+            stickmanList[i].Transform.DOLocalMove(tempPos , .2f).SetEase(Ease.Flash);
         }
     }
 
+    public void DestroyStickman(StickmanController stickman)
+    {
+        stickman.Splat.transform.parent = null;
+        stickman.Splat.SetActive(true);
+        stickmanList.Remove(stickman);
+        stickman.gameObject.SetActive(false);
+        stickman.transform.parent = stickman.InitialParent;
 
+        if (stickmanList.Count <= 0)
+        {
+            if (stickman.StickmanType == StickmanType.AllyStickman)
+            {
+                //ENEMY WINS
+                print("ENEMY WINS");
+                EventManager.Instance.RaiseGameFailed();
+            }
+            else
+            {
+                //PLAYER WINS
+                print("PLAYER WINS");
+                CreateFormation(stickmanList);
+                EventManager.Instance.RaiseFightWon();
+            }
+        }
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,21 @@ public class EnemyCrowdController : CrowdBase
         {
             GameObject obj = ObjectPooler.Instance.GetObjectFromPool(StickmanType.EnemyStickman);
             obj.transform.parent = this.transform;
+            obj.SetActive(true);
             obj.transform.localPosition = Vector3.zero;
             stickmanList.Add(obj.GetComponent<StickmanController>());
         }
         CreateFormation(stickmanList);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out PlayerCrowdController player))
+        {
+            foreach (StickmanController stickman in stickmanList)
+            {
+                stickman.OnRunStateEnteredHandler();
+            }
+        }
     }
 }

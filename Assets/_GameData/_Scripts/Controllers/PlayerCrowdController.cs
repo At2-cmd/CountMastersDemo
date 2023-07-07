@@ -37,6 +37,7 @@ public class PlayerCrowdController : CrowdBase
         GameObject obj = ObjectPooler.Instance.GetObjectFromPool(StickmanType.AllyStickman);
         StickmanController stickman = obj.GetComponent<StickmanController>();
         obj.transform.parent = this.transform;
+        obj.SetActive(true);
         obj.transform.position = transform.position;
         stickman.OnRunStateEnteredHandler();
         stickmanList.Add(stickman);

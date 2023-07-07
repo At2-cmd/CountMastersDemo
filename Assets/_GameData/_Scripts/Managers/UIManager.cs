@@ -28,13 +28,13 @@ public class UIManager : MonoBehaviour
     private void OnGameFailedHandler()
     {
         inGameCanvas.enabled = false;
-        successCanvas.enabled = true;
+        failCanvas.enabled = true;
     }
 
     private void OnGameSuccessedHandler()
     {
         inGameCanvas.enabled = false;
-        failCanvas.enabled = true;
+        successCanvas.enabled = true;
     }
 
     public void StartGameTapAreaClicked()

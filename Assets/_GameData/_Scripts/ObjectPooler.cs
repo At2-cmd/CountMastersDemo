@@ -67,7 +67,6 @@ public class ObjectPooler : MonoBehaviour
             if (!listToCheck[i].activeSelf)
             {
                 objectToPick = listToCheck[i];
-                objectToPick.SetActive(true);
                 break;
             }
         }

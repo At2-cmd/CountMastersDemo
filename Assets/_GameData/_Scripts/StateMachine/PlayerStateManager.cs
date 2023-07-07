@@ -16,6 +16,9 @@ public class PlayerStateManager : MonoBehaviour
     //-------------------------// STATES //-------------------------//
 
     private PlayerMovementController playerMovementController;
+    private Vector3 targetDirection;
+
+    public Vector3 TargetDirection { get => targetDirection; set => targetDirection = value; }
 
     private void Awake()
     {
@@ -25,7 +28,9 @@ public class PlayerStateManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.OnGameStarted += OnGameStartedHandler;
+        EventManager.Instance.OnFightWon += OnFightWonHandler;
     }
+
 
     private void Start()
     {
@@ -53,5 +58,9 @@ public class PlayerStateManager : MonoBehaviour
     {
         playerMovementController.ActivateMovement();
         SwitchState(runState); //When the first click occurs by the user, player switches to run state.
+    }
+    private void OnFightWonHandler()
+    {
+        SwitchState(runState); //Player won the fight, so keep on running...
     }
 }
