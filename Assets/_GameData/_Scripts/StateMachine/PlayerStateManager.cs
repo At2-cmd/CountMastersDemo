@@ -36,13 +36,6 @@ public class PlayerStateManager : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
-
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            EventManager.Instance.RaiseGameStarted();
-        }
-#endif
     }
 
     public void SwitchState(PlayerBaseState newState)
