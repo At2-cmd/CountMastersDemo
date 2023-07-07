@@ -24,8 +24,8 @@ public class EnemyMovementController : MovementBase
         if (other.TryGetComponent(out PlayerCrowdController player))
         {
             collider.enabled = false;
-            transform.forward = _targetPosition - transform.position;
             moveToTargetRoutine = StartCoroutine(MoveToFightTarget(_targetPosition, 3));
+            SmoothLookAtTarget(_targetPosition);
         }
     }
     private void OnGameFailedHandler()

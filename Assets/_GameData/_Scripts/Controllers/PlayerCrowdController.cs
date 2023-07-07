@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerCrowdController : CrowdBase
 {
-    private int totalCrowdCount;
 
     private void Awake()
     {
         totalCrowdCount = GetComponentsInChildren<StickmanController>().Length;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent(out StickmanController stickman))
+            {
+                stickmanList.Add(stickman);
+            }
+        }
     }
 
     public void GenerateCrowd(int amount , GateType gateType)

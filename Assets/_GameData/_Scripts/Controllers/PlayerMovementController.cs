@@ -26,14 +26,15 @@ public class PlayerMovementController : MovementBase
     private void OnFightStartedHandler(Vector3 targetDirection)
     {
         canMove = false;
-        transform.forward = targetDirection - transform.position;
         moveToTargetRoutine = StartCoroutine(MoveToFightTarget(targetDirection, 3));
+        SmoothLookAtTarget(targetDirection);
     }
 
     private void OnFightWonHandler()
     {
         canMove = true;
         StopCoroutine(moveToTargetRoutine);
+        SmoothLookAtForward();
     }
 
     private void OnGameFailedHandler()

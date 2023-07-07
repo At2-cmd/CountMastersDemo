@@ -10,6 +10,7 @@ public class EnemyCrowdController : CrowdBase
     private void Start()
     {
         StartCoroutine(GenerateEnemyGroupWithDelay());
+        totalCrowdCount = enemyCrowdAmount;
     }
 
     private IEnumerator GenerateEnemyGroupWithDelay()

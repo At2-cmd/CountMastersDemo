@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +22,15 @@ public class MovementBase : MonoBehaviour
 
         // Ensure reaching the exact target position
         transform.position = target;
+    }
+
+    protected void SmoothLookAtForward()
+    {
+        transform.DORotate(Vector3.zero, .5f);
+    }
+
+    protected void SmoothLookAtTarget(Vector3 targetPos)
+    {
+        transform.DOLookAt(targetPos, 1);
     }
 }

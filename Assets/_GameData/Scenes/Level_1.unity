@@ -261,7 +261,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 462310872612765800, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: amount
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 462310872612765800, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: gateType
@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4119124200390905107, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: amount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5447387618238357098, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: m_Name
@@ -430,7 +430,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 462310872612765800, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: amount
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 462310872612765800, guid: 43e91b365dccd3147a21b4152db8c984, type: 3}
       propertyPath: gateType
@@ -1641,7 +1641,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196211630}
-  m_LocalRotation: {x: 0.28179914, y: -0.000000016509066, z: 0.000000004848744, w: 0.95947343}
+  m_LocalRotation: {x: 0.28179914, y: 0.000000016509066, z: -0.000000004848744, w: 0.95947343}
   m_LocalPosition: {x: 2.2155745, y: 11.519572, z: -24.202217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2369,7 +2369,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988613858}
-  m_LocalRotation: {x: 0.28179914, y: -0.000000016509066, z: 0.000000004848744, w: 0.95947343}
+  m_LocalRotation: {x: 0.28179914, y: 0.000000016509066, z: -0.000000004848744, w: 0.95947343}
   m_LocalPosition: {x: 2.2155745, y: 11.519572, z: -24.202217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2611,7 +2611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070598445720213182, guid: 7a28591867287194bad6d16980cfaf66, type: 3}
       propertyPath: enemyCrowdAmount
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7070598445720213183, guid: 7a28591867287194bad6d16980cfaf66, type: 3}
       propertyPath: m_Name

@@ -10,6 +10,7 @@ public abstract class CrowdBase : MonoBehaviour
     [Range(0,1)] [SerializeField] protected float distanceFactor;
     [Range(0,1)] [SerializeField] protected float radius;
     private Vector3 tempPos;
+    protected int totalCrowdCount;
 
     protected virtual void CreateFormation(List<StickmanController> stickmanList)
     {
@@ -24,6 +25,7 @@ public abstract class CrowdBase : MonoBehaviour
 
     public void DestroyStickman(StickmanController stickman)
     {
+        totalCrowdCount--;
         stickman.Splat.transform.parent = null;
         stickman.Splat.SetActive(true);
         stickmanList.Remove(stickman);
