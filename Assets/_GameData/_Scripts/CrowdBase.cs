@@ -23,6 +23,7 @@ public abstract class CrowdBase : MonoBehaviour
         }
     }
 
+
     public void DestroyStickman(StickmanController stickman)
     {
         totalCrowdCount--;
