@@ -28,15 +28,4 @@ public class EnemyCrowdController : CrowdBase
         }
         CreateFormation(stickmanList);
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerCrowdController player))
-        {
-            foreach (StickmanController stickman in stickmanList)
-            {
-                stickman.OnRunStateEnteredHandler();
-            }
-        }
-    }
 }

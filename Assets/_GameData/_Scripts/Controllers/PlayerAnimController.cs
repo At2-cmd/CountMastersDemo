@@ -7,6 +7,7 @@ public class PlayerAnimController
 
     public static readonly int Idle = Animator.StringToHash("Idle");
     public static readonly int Run = Animator.StringToHash("Run");
+    public static readonly int FightWalk = Animator.StringToHash("FightWalk");
     public static readonly int Victory = Animator.StringToHash("Victory");
 
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerCrowdController : CrowdBase
 {
@@ -82,15 +83,13 @@ public class PlayerCrowdController : CrowdBase
         int numRows = CalculateNumRows(stickmanList.Count - 1); // Calculate the number of rows in the pyramid (excluding the topmost cube)
         int[] unitsInRows = CalculateUnitsInRows(numRows, stickmanList.Count - 1); // Calculate the number of cubes in each row
         int currentUnitIndex = 0;
-        print("numrows : " + numRows);
 
         float topX = 0.0f;
         float topY = (numRows - 1) * cubeSize;
         float topZ = 0.0f;
         Vector3 topPosition = new Vector3(topX, topY, topZ);
-        print("top Pos : " + topPosition);
         StickmanController topMostUnit = stickmanList[currentUnitIndex];
-        topMostUnit.transform.localPosition = topPosition;
+        topMostUnit.transform.DOLocalMove(topPosition, .5f);
         currentUnitIndex++;
 
         for (int row = numRows - 1; row >= 0; row--)
@@ -106,7 +105,7 @@ public class PlayerCrowdController : CrowdBase
 
                 Vector3 localPosition = new Vector3(x, y, z);
                 StickmanController unit = stickmanList[currentUnitIndex];
-                unit.transform.localPosition = localPosition;
+                unit.transform.DOLocalMove(localPosition, .5f);
                 currentUnitIndex++;
             }
         }

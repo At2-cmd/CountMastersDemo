@@ -28,6 +28,7 @@ public class StickmanController : MonoBehaviour
         crowdController = transform.GetComponentInParent<CrowdBase>(); // Change crowd controller each time it gets picked from the pool.
 
         EventManager.Instance.OnGameFailed += OnGameFailedHandler;
+        EventManager.Instance.OnFightStarted += OnFightStartedHandler;
         //-----------------------//
         if (stickmanType != StickmanType.AllyStickman) return; // EnemyStickmans do not have to subscribe and listen these events.
         EventManager.Instance.OnRunStateEntered += OnRunStateEnteredHandler;
@@ -37,6 +38,7 @@ public class StickmanController : MonoBehaviour
     private void OnDisable()
     {
         EventManager.Instance.OnGameFailed -= OnGameFailedHandler;
+        EventManager.Instance.OnFightStarted -= OnFightStartedHandler;
         //-----------------------//
         if (stickmanType != StickmanType.AllyStickman) return; // EnemyStickmans should not unsubscribe these events, because they have never been subscribed.
         EventManager.Instance.OnRunStateEntered -= OnRunStateEnteredHandler; 
@@ -69,12 +71,19 @@ public class StickmanController : MonoBehaviour
         _animController.PlayAnim(PlayerAnimController.Idle);
     }
 
+    private void OnFightStartedHandler(Vector3 obj)
+    {
+        _animController.PlayAnim(PlayerAnimController.FightWalk);
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (StickmanType != StickmanType.AllyStickman) return;
 
         if (other.TryGetComponent(out StickmanController otherStickman))
         {
+            AudioReactor.Play(AudioReactor.lib.destroyStickmanSound);
             if (otherStickman.StickmanType == StickmanType.EnemyStickman)
             {
                 crowdController.DestroyStickman(this);

@@ -3,8 +3,9 @@
 [CreateAssetMenu(fileName = "AudioLibrary", menuName = "Game Data/New AudioLibrary")]
 public class AudioLibrary : ScriptableObject
 {
-    public AudioGroup buttonPress;
-    public AudioGroup stickmanDie;
-    public AudioGroup success;
-    public AudioGroup fail;
+    public AudioGroup destroyStickmanSound;
+    public AudioGroup winSound;
+    public AudioGroup failSound;
+    public AudioGroup highScoreSound;
+    public AudioGroup generateCrowdSound;
 }

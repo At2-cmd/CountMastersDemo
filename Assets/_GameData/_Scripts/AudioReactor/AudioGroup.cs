@@ -13,13 +13,13 @@ public class AudioGroup : ScriptableObject
     public int incrementalPitchSteps;
     public float incrementalPitchCountdown;
 
+    private int soundCount = -1;
+    private float _lastPlaytime;
+    private int playCount;
+
     public AudioClip Get_Clip()
     {
-        if (soundCount == audio_clips.Length - 1)
-        {
-            soundCount = -1;
-        }
-        soundCount++;
+        soundCount = (soundCount + 1) % audio_clips.Length;
         return audio_clips[soundCount];
     }
 
@@ -27,10 +27,6 @@ public class AudioGroup : ScriptableObject
     {
         return Random.Range(vol_min, vol_max);
     }
-
-    private float _lastPlaytime;
-    private int playCount;
-    private int soundCount = -1;
 
     public float Get_Pitch()
     {

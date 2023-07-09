@@ -40,14 +40,12 @@ public abstract class CrowdBase : MonoBehaviour
             if (stickman.StickmanType == StickmanType.AllyStickman)
             {
                 //ENEMY WINS
-                print("ENEMY WINS");
                 crowdUIController.DisableObject();
                 EventManager.Instance.RaiseGameFailed();
             }
             else
             {
                 //PLAYER WINS
-                print("PLAYER WINS");
                 crowdUIController.DisableObject();
                 EventManager.Instance.RaiseFightWon();
             }

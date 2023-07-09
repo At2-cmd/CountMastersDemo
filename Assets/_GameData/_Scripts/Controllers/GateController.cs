@@ -25,6 +25,7 @@ public class GateController : MonoBehaviour
         {
             boxCollider.enabled = false; //Deactivate the gate.
             player.GenerateCrowd(amount , gateType);
+            AudioReactor.Play(AudioReactor.lib.generateCrowdSound);
         }
     }
 

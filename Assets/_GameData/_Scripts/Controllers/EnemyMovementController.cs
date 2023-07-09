@@ -18,16 +18,16 @@ public class EnemyMovementController : MovementBase
         collider = GetComponent<Collider>();
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerCrowdController player))
+        if (other.TryGetComponent(out PlayerStateManager player))
         {
             collider.enabled = false;
             moveToTargetRoutine = StartCoroutine(MoveToFightTarget(_targetPosition, 3));
             SmoothLookAtTarget(_targetPosition);
         }
     }
+
     private void OnGameFailedHandler()
     {
         StopAllCoroutines();

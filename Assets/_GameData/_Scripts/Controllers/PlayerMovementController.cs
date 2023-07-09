@@ -27,6 +27,7 @@ public class PlayerMovementController : MovementBase
     private void OnFightStartedHandler(Vector3 targetDirection)
     {
         canMove = false;
+        
         moveToTargetRoutine = StartCoroutine(MoveToFightTarget(targetDirection, 3));
         SmoothLookAtTarget(targetDirection);
     }

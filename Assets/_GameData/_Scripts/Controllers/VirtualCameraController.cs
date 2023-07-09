@@ -16,7 +16,6 @@ public class VirtualCameraController : MonoBehaviour
 
     private void OnFinishPointReachedHandler()
     {
-        print("cameras changed");
         runnerPhaseCam.enabled = false;
         stairClimPhaseCam.enabled = true;
     }
