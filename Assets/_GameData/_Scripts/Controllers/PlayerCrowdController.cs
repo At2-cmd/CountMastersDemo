@@ -112,6 +112,11 @@ public class PlayerCrowdController : CrowdBase
         }
     }
 
+    public void UpdateFormation()
+    {
+        CreateFormation(stickmanList);
+    }
+
     private int CalculateNumRows(int totalCount)
     {
         int numRows = 0;

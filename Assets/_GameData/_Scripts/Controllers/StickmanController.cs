@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class StickmanController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class StickmanController : MonoBehaviour
 
     [SerializeField] private GameObject splat;
     private Transform _transform;
+    private Rigidbody _rigidbody;
+    private Collider _collider;
     private Transform initialParent;
 
     private CrowdBase crowdController;
@@ -44,6 +47,8 @@ public class StickmanController : MonoBehaviour
     private void Awake()
     {
         _animController = new PlayerAnimController(GetComponent<Animator>());
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
         _transform = this.transform;
         initialParent = transform.parent;
     }
@@ -76,5 +81,13 @@ public class StickmanController : MonoBehaviour
                 otherStickman.crowdController.DestroyStickman(otherStickman);
             }
         }
+    }
+
+    public void EnableFall()
+    {
+        _collider.enabled = false;
+        transform.DOMoveY(transform.position.y - 5, 1f);
+        transform.parent = initialParent;
+        crowdController.DestroyStickmanAtFall(this, _collider);
     }
 }

@@ -40,6 +40,7 @@ public class PlayerMovementController : MovementBase
 
     private void OnGameFailedHandler()
     {
+        canMove = false;
         StopCoroutine(moveToTargetRoutine);
     }
 

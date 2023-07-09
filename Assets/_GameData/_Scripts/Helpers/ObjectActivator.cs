@@ -6,11 +6,11 @@ public class ObjectActivator : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerStateManager player))
+        if (other.TryGetComponent(out PlayerCrowdController player))
         {
-            for (int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < transform.parent.childCount; i++)
             {
-                transform.GetChild(i).gameObject.SetActive(true);
+                transform.parent.GetChild(i).gameObject.SetActive(true);
             }
         }
     }
