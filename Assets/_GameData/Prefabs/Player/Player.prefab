@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5589793015903756739, guid: 513dc41ba558f1f44a8561386d479168, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6579456692532872694, guid: 513dc41ba558f1f44a8561386d479168, type: 3}
       propertyPath: m_Name
       value: CrowdUICanvas
