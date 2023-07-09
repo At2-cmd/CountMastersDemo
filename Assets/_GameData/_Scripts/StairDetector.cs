@@ -21,6 +21,7 @@ public class StairDetector : MonoBehaviour
             if (isTopDetector)
             {
                 EventManager.Instance.RaiseGameSuccessed();
+                AudioReactor.Play(AudioReactor.lib.winSound);
                 return;
             }
             collider.enabled = false;

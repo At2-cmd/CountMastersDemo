@@ -8,6 +8,7 @@ public class DropArea : MonoBehaviour
     {
         if (other.TryGetComponent(out StickmanController stickman))
         {
+            AudioReactor.Play(AudioReactor.lib.fallSound);
             stickman.EnableFall();
         }
     }

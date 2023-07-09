@@ -84,9 +84,9 @@ public class StickmanController : MonoBehaviour
 
         if (other.TryGetComponent(out StickmanController otherStickman))
         {
-            AudioReactor.Play(AudioReactor.lib.destroyStickmanSound);
             if (otherStickman.StickmanType == StickmanType.EnemyStickman)
             {
+                AudioReactor.Play(AudioReactor.lib.destroyStickmanSound);
                 crowdController.DestroyStickman(this);
                 otherStickman.crowdController.DestroyStickman(otherStickman);
             }

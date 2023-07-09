@@ -17,3 +17,4 @@ MonoBehaviour:
   failSound: {fileID: 11400000, guid: 140fd5051292fe149a3bcc901038b50f, type: 2}
   highScoreSound: {fileID: 11400000, guid: 1d554ca94e1acd748add4ebecc2e5dd8, type: 2}
   generateCrowdSound: {fileID: 11400000, guid: ea20c3a285bd2804fae93a02a0d4d084, type: 2}
+  fallSound: {fileID: 11400000, guid: feb0624247a013341bf8ec81dfafe20b, type: 2}

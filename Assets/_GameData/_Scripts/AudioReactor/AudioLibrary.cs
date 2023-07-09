@@ -8,4 +8,5 @@ public class AudioLibrary : ScriptableObject
     public AudioGroup failSound;
     public AudioGroup highScoreSound;
     public AudioGroup generateCrowdSound;
+    public AudioGroup fallSound;
 }
