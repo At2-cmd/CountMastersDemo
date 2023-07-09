@@ -35,7 +35,7 @@ public class EventManager : MonoBehaviour
 	public event Action OnFinishPointReached;
 	public void RaiseFinishPointReached() => OnFinishPointReached?.Invoke();
 
-	public event Action OnStairLineTouched;
-	public void RaiseStairLineTouched() => OnStairLineTouched?.Invoke();
+	public event Action<bool> OnStairLineTouched;
+	public void RaiseStairLineTouched(bool isTopDetector) => OnStairLineTouched?.Invoke(isTopDetector);
 
 }

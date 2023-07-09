@@ -69,6 +69,7 @@ public class StickmanController : MonoBehaviour
     private void OnFinishPointReachedHandler()
     {
         _animController.PlayAnim(PlayerAnimController.Idle);
+        _collider.enabled = false;
     }
 
     private void OnFightStartedHandler(Vector3 _)

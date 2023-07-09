@@ -19,6 +19,7 @@ public class AudioReactor : MonoBehaviour
         EventManager.Instance.OnFightStarted += OnFightStartedHandler;
         EventManager.Instance.OnFightWon += OnFightWonHandler;
         EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
+        EventManager.Instance.OnGameFailed += OnGameFailedHandler;
     }
 
     private void OnGameStartedHandler()
@@ -35,6 +36,11 @@ public class AudioReactor : MonoBehaviour
         crowdRunningAudioSource.Stop();
     }
     private void OnFinishPointReachedHandler()
+    {
+        crowdRunningAudioSource.Stop();
+    }
+
+    private void OnGameFailedHandler()
     {
         crowdRunningAudioSource.Stop();
     }

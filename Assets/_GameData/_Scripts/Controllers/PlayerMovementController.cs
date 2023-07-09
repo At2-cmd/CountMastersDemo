@@ -23,6 +23,7 @@ public class PlayerMovementController : MovementBase
         EventManager.Instance.OnFightWon += OnFightWonHandler;
         EventManager.Instance.OnGameFailed += OnGameFailedHandler;
         EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
+        EventManager.Instance.OnGameSuccessed += OnGameSuccessedHandler;
     }
 
     private void OnFightStartedHandler(Vector3 targetDirection)
@@ -50,6 +51,12 @@ public class PlayerMovementController : MovementBase
     {
         canUserControl = false;
         forwardSpeed *= 2;
+    }
+
+    private void OnGameSuccessedHandler()
+    {
+        canMove = false; 
+        canUserControl = false;
     }
 
     private void Update()
