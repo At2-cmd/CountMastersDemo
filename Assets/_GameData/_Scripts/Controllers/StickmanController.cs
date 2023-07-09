@@ -71,7 +71,7 @@ public class StickmanController : MonoBehaviour
         _animController.PlayAnim(PlayerAnimController.Idle);
     }
 
-    private void OnFightStartedHandler(Vector3 obj)
+    private void OnFightStartedHandler(Vector3 _)
     {
         _animController.PlayAnim(PlayerAnimController.FightWalk);
     }

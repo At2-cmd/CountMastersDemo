@@ -32,8 +32,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6606894632416624298}
   - {fileID: 6497475088450715997}
+  - {fileID: 6606894632416624298}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -84,6 +84,7 @@ MonoBehaviour:
   distanceFactor: 0.4
   radius: 1
   cubeSize: 0
+  stairDetector: {fileID: 0}
 --- !u!136 &2095112661330411272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -123,7 +124,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7459327745843613981, guid: 39d49faad900fbe4e840b68464536cfa, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7459327745843613981, guid: 39d49faad900fbe4e840b68464536cfa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -193,7 +194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1447139528461284317, guid: 513dc41ba558f1f44a8561386d479168, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1447139528461284317, guid: 513dc41ba558f1f44a8561386d479168, type: 3}
       propertyPath: m_AnchorMax.x

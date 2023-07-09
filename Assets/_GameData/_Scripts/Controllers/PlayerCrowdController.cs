@@ -7,6 +7,7 @@ using DG.Tweening;
 public class PlayerCrowdController : CrowdBase
 {
     public float cubeSize;
+    [SerializeField] private GameObject stairDetector;
 
 
     private void OnEnable()
@@ -80,6 +81,7 @@ public class PlayerCrowdController : CrowdBase
 
     private void CreateDynamicPyramidFormation(List<StickmanController> stickmanList)
     {
+        GameObject stairDetectorObject;
         int numRows = CalculateNumRows(stickmanList.Count - 1); // Calculate the number of rows in the pyramid (excluding the topmost cube)
         int[] unitsInRows = CalculateUnitsInRows(numRows, stickmanList.Count - 1); // Calculate the number of cubes in each row
         int currentUnitIndex = 0;
@@ -88,23 +90,29 @@ public class PlayerCrowdController : CrowdBase
         float topY = (numRows - 1) * cubeSize;
         float topZ = 0.0f;
         Vector3 topPosition = new Vector3(topX, topY, topZ);
+        stairDetectorObject = Instantiate(stairDetector, transform);
+        stairDetectorObject.transform.localPosition = topPosition;
         StickmanController topMostUnit = stickmanList[currentUnitIndex];
-        topMostUnit.transform.DOLocalMove(topPosition, .5f);
+        topMostUnit.transform.parent = stairDetectorObject.transform;
+        topMostUnit.transform.DOLocalMove(Vector3.zero, .5f);
         currentUnitIndex++;
 
         for (int row = numRows - 1; row >= 0; row--)
         {
             int numUnitsInRow = unitsInRows[row];
             float rowOffset = (numUnitsInRow - 1) * cubeSize * 0.5f;
+            stairDetectorObject = Instantiate(stairDetector, transform);
+            stairDetectorObject.transform.localPosition = new Vector3(0, row * cubeSize,0);
 
             for (int col = 0; col < numUnitsInRow; col++)
             {
                 float x = col * cubeSize - rowOffset;
-                float y = row * cubeSize;
+                float y = 0.0f;
                 float z = 0.0f;
 
                 Vector3 localPosition = new Vector3(x, y, z);
                 StickmanController unit = stickmanList[currentUnitIndex];
+                unit.transform.parent = stairDetectorObject.transform;
                 unit.transform.DOLocalMove(localPosition, .5f);
                 currentUnitIndex++;
             }

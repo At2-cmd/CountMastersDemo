@@ -15,6 +15,7 @@ public class PlayerMovementController : MovementBase
     private float targetSwerveAmount;
     private float currentSwerveAmount;
     private bool canMove = false;
+    private bool canUserControl = true;
 
     private void OnEnable()
     {
@@ -47,7 +48,8 @@ public class PlayerMovementController : MovementBase
 
     private void OnFinishPointReachedHandler()
     {
-        canMove = false;
+        canUserControl = false;
+        forwardSpeed *= 2;
     }
 
     private void Update()
@@ -56,6 +58,8 @@ public class PlayerMovementController : MovementBase
 
         // Move the object forward
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+
+        if (!canUserControl) return;
 
         // Check if the left mouse button is pressed
         isMousePressed = InputManager.Instance.IsMousePressed();
