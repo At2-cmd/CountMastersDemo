@@ -6,6 +6,7 @@ using DG.Tweening;
 public abstract class CrowdBase : MonoBehaviour
 {
     [SerializeField] protected StickmanType stickmanType;
+    [SerializeField] protected CrowdUIController crowdUIController;
     protected List<StickmanController> stickmanList = new List<StickmanController>();
     [Range(0,1)] [SerializeField] protected float distanceFactor;
     [Range(0,1)] [SerializeField] protected float radius;
@@ -27,6 +28,7 @@ public abstract class CrowdBase : MonoBehaviour
     public void DestroyStickman(StickmanController stickman)
     {
         totalCrowdCount--;
+        crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
         stickman.Splat.transform.parent = null;
         stickman.Splat.SetActive(true);
         stickmanList.Remove(stickman);
@@ -39,12 +41,14 @@ public abstract class CrowdBase : MonoBehaviour
             {
                 //ENEMY WINS
                 print("ENEMY WINS");
+                crowdUIController.DisableObject();
                 EventManager.Instance.RaiseGameFailed();
             }
             else
             {
                 //PLAYER WINS
                 print("PLAYER WINS");
+                crowdUIController.DisableObject();
                 CreateFormation(stickmanList);
                 EventManager.Instance.RaiseFightWon();
             }

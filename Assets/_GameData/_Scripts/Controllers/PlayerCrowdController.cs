@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class PlayerCrowdController : CrowdBase
 {
-    public float cubeSize; // Size of each cube
+    public float cubeSize;
 
 
     private void OnEnable()
     {
         EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
+        EventManager.Instance.OnFightWon += OnFightWonHandler;
     }
+
 
     private void Awake()
     {
         totalCrowdCount = GetComponentsInChildren<StickmanController>().Length;
+        crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
         for (int i = 0; i < transform.childCount; i++)
         {
             if (transform.GetChild(i).TryGetComponent(out StickmanController stickman))
@@ -33,7 +36,9 @@ public class PlayerCrowdController : CrowdBase
             {
                 GenerateUnit();
             }
+            crowdUIController.UpdateGainedCrowdText("+", amount);
         }
+
         else if (gateType == GateType.Multiplier)
         {
             int loopAmount = totalCrowdCount * (amount - 1);
@@ -41,7 +46,11 @@ public class PlayerCrowdController : CrowdBase
             {
                 GenerateUnit();
             }
+            crowdUIController.UpdateGainedCrowdText("x", amount);
         }
+
+        crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
+
         CreateFormation(stickmanList);
     }
 
@@ -60,6 +69,12 @@ public class PlayerCrowdController : CrowdBase
     private void OnFinishPointReachedHandler()
     {
         CreateDynamicPyramidFormation(stickmanList);
+        crowdUIController.DisableObject();
+    }
+
+    private void OnFightWonHandler()
+    {
+        CreateFormation(stickmanList);
     }
 
     private void CreateDynamicPyramidFormation(List<StickmanController> stickmanList)

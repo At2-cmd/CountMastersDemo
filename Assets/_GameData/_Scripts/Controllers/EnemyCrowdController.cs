@@ -11,6 +11,7 @@ public class EnemyCrowdController : CrowdBase
     {
         StartCoroutine(GenerateEnemyGroupWithDelay());
         totalCrowdCount = enemyCrowdAmount;
+        crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
     }
 
     private IEnumerator GenerateEnemyGroupWithDelay()
