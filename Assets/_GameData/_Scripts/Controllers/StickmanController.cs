@@ -7,19 +7,17 @@ using DG.Tweening;
 public class StickmanController : MonoBehaviour
 {
     [SerializeField] private StickmanType stickmanType;
-
     [SerializeField] private GameObject splat;
+
     private Transform _transform;
-    private Rigidbody _rigidbody;
     private Collider _collider;
     private Transform initialParent;
-
     private CrowdBase crowdController;
 
     private PlayerAnimController _animController;
-    public StickmanType StickmanType => stickmanType;
     public Transform Transform => _transform;
     public Transform InitialParent => initialParent;
+    public StickmanType StickmanType => stickmanType;
 
     public GameObject Splat { get => splat; set => splat = value; }
 
@@ -49,7 +47,6 @@ public class StickmanController : MonoBehaviour
     private void Awake()
     {
         _animController = new PlayerAnimController(GetComponent<Animator>());
-        _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
         _transform = this.transform;
         initialParent = transform.parent;
@@ -72,8 +69,11 @@ public class StickmanController : MonoBehaviour
         _collider.enabled = false;
     }
 
-    private void OnFightStartedHandler(Vector3 _)
+    private void OnFightStartedHandler(Vector3 _ , EnemyCrowdController crowd)
     {
+        if (stickmanType != StickmanType.AllyStickman && crowdController != crowd) return; 
+        //If the stickman is enemy and not in the group we will fight, return.
+
         _animController.PlayAnim(PlayerAnimController.FightWalk);
     }
 

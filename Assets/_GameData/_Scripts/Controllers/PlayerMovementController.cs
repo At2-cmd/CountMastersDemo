@@ -26,10 +26,9 @@ public class PlayerMovementController : MovementBase
         EventManager.Instance.OnGameSuccessed += OnGameSuccessedHandler;
     }
 
-    private void OnFightStartedHandler(Vector3 targetDirection)
+    private void OnFightStartedHandler(Vector3 targetDirection , EnemyCrowdController _)
     {
         canMove = false;
-        
         moveToTargetRoutine = StartCoroutine(MoveToFightTarget(targetDirection, 3));
         SmoothLookAtTarget(targetDirection);
     }

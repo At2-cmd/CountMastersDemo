@@ -15,7 +15,7 @@ public class StairCamTarget : MonoBehaviour
 
     private void OnStairLineTouchedHandler(bool _)
     {
-        tempYPos += 1f;
+        tempYPos += .75f;
         tween.Kill();
         tween = transform.DOMoveY(tempYPos , .25f);
     }

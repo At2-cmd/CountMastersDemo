@@ -26,8 +26,8 @@ public class EventManager : MonoBehaviour
 	public event Action OnRunStateEntered;
     public void RaiseRunStateEntered() => OnRunStateEntered?.Invoke();
 
-	public event Action<Vector3> OnFightStarted;
-	public void RaiseFightStarted(Vector3 targetDirection) => OnFightStarted?.Invoke(targetDirection);
+	public event Action<Vector3, EnemyCrowdController> OnFightStarted;
+	public void RaiseFightStarted(Vector3 targetDirection, EnemyCrowdController crowd) => OnFightStarted?.Invoke(targetDirection, crowd);
 	
 	public event Action OnFightWon;
 	public void RaiseFightWon() => OnFightWon?.Invoke();

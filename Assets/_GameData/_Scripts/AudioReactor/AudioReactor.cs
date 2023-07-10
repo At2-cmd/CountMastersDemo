@@ -31,7 +31,7 @@ public class AudioReactor : MonoBehaviour
         crowdRunningAudioSource.Play();
     }
 
-    private void OnFightStartedHandler(Vector3 obj)
+    private void OnFightStartedHandler(Vector3 pos , EnemyCrowdController _)
     {
         crowdRunningAudioSource.Stop();
     }

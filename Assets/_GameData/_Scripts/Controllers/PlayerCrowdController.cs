@@ -22,9 +22,9 @@ public class PlayerCrowdController : CrowdBase
     {
         totalCrowdCount = GetComponentsInChildren<StickmanController>().Length;
         crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < stickmanParent.childCount; i++)
         {
-            if (transform.GetChild(i).TryGetComponent(out StickmanController stickman))
+            if (stickmanParent.GetChild(i).TryGetComponent(out StickmanController stickman))
             {
                 stickmanList.Add(stickman);
             }

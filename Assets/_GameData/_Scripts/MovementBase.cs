@@ -26,7 +26,7 @@ public class MovementBase : MonoBehaviour
 
     protected void SmoothLookAtForward()
     {
-        transform.DORotate(Vector3.zero, .5f);
+        transform.DORotate(Vector3.forward, .5f);
     }
 
     protected void SmoothLookAtTarget(Vector3 targetPos)

@@ -8,6 +8,7 @@ public class FinishPointDetector : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerStateManager player))
         {
+            player.transform.position = new Vector3(0, player.transform.position.y, player.transform.position.z);
             player.SwitchState(player.stairClimbState);
         }
     }

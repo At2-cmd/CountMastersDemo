@@ -72,12 +72,12 @@ public abstract class CrowdBase : MonoBehaviour
         }
     }
 
-    protected int CalculateNumRows(int totalCount)
+    private int CalculateNumRows(int totalUnits)
     {
         int numRows = 0;
         int currentUnits = 0;
 
-        while (currentUnits < totalCount)
+        while (currentUnits < totalUnits)
         {
             numRows++;
             currentUnits += numRows;
@@ -86,60 +86,50 @@ public abstract class CrowdBase : MonoBehaviour
         return numRows;
     }
 
-    protected int[] CalculateUnitsInRows(int numRows, int totalCount)
+    private int[] CalculateUnitsInRows(int numRows, int totalUnits)
     {
-        int[] unitsInRows = new int[numRows];
-        int remainingUnits = totalCount;
+        int[] cubesInRows = new int[numRows];
+        int remainingCubes = totalUnits;
         int currentRow = 0;
 
-        while (remainingUnits > 0)
+        while (remainingCubes > 0)
         {
-            if (currentRow == numRows - 1) // Bottom row
+            if (remainingCubes >= numRows - currentRow)
             {
-                unitsInRows[currentRow] = Math.Min(remainingUnits, 7); // Set the number of units to 7 or the remaining units, whichever is smaller
-                remainingUnits -= unitsInRows[currentRow];
-            }
-            else if (remainingUnits >= numRows - currentRow)
-            {
-                unitsInRows[currentRow] = numRows - currentRow;
-                remainingUnits -= numRows - currentRow;
+                cubesInRows[currentRow] = numRows - currentRow;
+                remainingCubes -= numRows - currentRow;
             }
             else
             {
-                unitsInRows[currentRow] = remainingUnits;
-                remainingUnits = 0;
+                cubesInRows[currentRow] = remainingCubes;
+                remainingCubes = 0;
             }
 
             currentRow++;
         }
-        return unitsInRows;
+
+        return cubesInRows;
     }
 
     protected void CreateDynamicPyramidFormation(List<StickmanController> stickmanList ,float offset ,StairDetector stairDetector)
     {
         GameObject stairDetectorObject;
-        int numRows = CalculateNumRows(stickmanList.Count - 1); // Calculate the number of rows in the pyramid (excluding the topmost cube)
-        int[] unitsInRows = CalculateUnitsInRows(numRows, stickmanList.Count - 1); // Calculate the number of cubes in each row
+        int numRows = CalculateNumRows(stickmanList.Count); // Calculate the number of rows in the pyramid (excluding the topmost cube)
+        int[] unitsInRows = CalculateUnitsInRows(numRows, stickmanList.Count); // Calculate the number of cubes in each row
         int currentUnitIndex = 0;
 
-        float topX = 0.0f;
-        float topY = (numRows - 1) * offset;
-        float topZ = 0.0f;
-        Vector3 topPosition = new Vector3(topX, topY, topZ);
-        stairDetectorObject = Instantiate(stairDetector.gameObject, transform);
-        stairDetectorObject.transform.localPosition = topPosition;
-        stairDetectorObject.GetComponent<StairDetector>().IsTopDetector = true;
-        StickmanController topMostUnit = stickmanList[currentUnitIndex];
-        topMostUnit.transform.parent = stairDetectorObject.transform;
-        topMostUnit.transform.DOLocalMove(Vector3.zero, .5f);
-        currentUnitIndex++;
-
-        for (int row = numRows - 1; row >= 0; row--)
+        for (int row = 0; row < numRows; row++)
         {
-            int numUnitsInRow = unitsInRows[row];
-            float rowOffset = (numUnitsInRow - 1) * offset * 0.5f;
             stairDetectorObject = Instantiate(stairDetector.gameObject, transform);
             stairDetectorObject.transform.localPosition = new Vector3(0, row * offset, 0);
+            stairDetectorObject.GetComponent<StairDetector>().IsTopDetector = true;
+            int numUnitsInRow = unitsInRows[row];
+            if (numUnitsInRow == 0)
+            {
+                break;
+            }
+
+            float rowOffset = (numUnitsInRow - 1) * offset * 0.5f;
 
             for (int col = 0; col < numUnitsInRow; col++)
             {
@@ -147,12 +137,15 @@ public abstract class CrowdBase : MonoBehaviour
                 float y = 0.0f;
                 float z = 0.0f;
 
-                Vector3 localPosition = new Vector3(x, y, z);
+                Vector3 position = new Vector3(x, y, z);
                 StickmanController unit = stickmanList[currentUnitIndex];
                 unit.transform.parent = stairDetectorObject.transform;
-                unit.transform.DOLocalMove(localPosition, .5f);
+                unit.transform.DOLocalMove(position, .5f);
                 currentUnitIndex++;
             }
+            stairDetectorObject.GetComponent<StairDetector>().IsTopDetector = false;
         }
     }
 }
+
+

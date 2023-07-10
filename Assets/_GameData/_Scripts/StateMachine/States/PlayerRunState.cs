@@ -18,7 +18,7 @@ public class PlayerRunState : PlayerBaseState
         if (other.TryGetComponent(out EnemyMovementController enemy))
         {
             enemy.SetTargetDestination(player.transform.position);
-            EventManager.Instance.RaiseFightStarted(enemy.transform.position);
+            EventManager.Instance.RaiseFightStarted(enemy.transform.position , enemy.GetComponent<EnemyCrowdController>());
             player.SwitchState(player.fightState);
         }
     }
