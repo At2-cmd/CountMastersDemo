@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class StairPlacer : EditorWindow
 {
     public GameObject stairPrefab;
@@ -43,3 +44,4 @@ public class StairPlacer : EditorWindow
         }
     }
 }
+#endif

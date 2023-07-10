@@ -11,8 +11,11 @@ public class PositionAlternator : MonoBehaviour
     private Vector3 startPosition;     // Starting position of the object
     private Vector3 targetPosition;    // Target position for each movement cycle
 
+    private Transform _transform;
+
     private void Start()
     {
+        _transform = transform;
         startPosition = transform.position;
         targetPosition = startPosition - new Vector3(moveDistance, 0f, 0f);
 
@@ -30,7 +33,7 @@ public class PositionAlternator : MonoBehaviour
             while (elapsedTime < moveDuration)
             {
                 float t = elapsedTime / moveDuration;
-                transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+                _transform.position = Vector3.Lerp(startPosition, targetPosition, t);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;

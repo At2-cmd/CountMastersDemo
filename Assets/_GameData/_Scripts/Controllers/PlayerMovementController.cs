@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementController : MovementBase
@@ -11,6 +9,7 @@ public class PlayerMovementController : MovementBase
     [SerializeField] private float minXPosition;
     [SerializeField] private float maxXPosition;
 
+    private Transform _transform;
     private bool isMousePressed;
     private float targetSwerveAmount;
     private float currentSwerveAmount;
@@ -24,6 +23,11 @@ public class PlayerMovementController : MovementBase
         EventManager.Instance.OnGameFailed += OnGameFailedHandler;
         EventManager.Instance.OnFinishPointReached += OnFinishPointReachedHandler;
         EventManager.Instance.OnGameSuccessed += OnGameSuccessedHandler;
+    }
+
+    private void Awake()
+    {
+        _transform = transform;
     }
 
     private void OnFightStartedHandler(Vector3 targetDirection , EnemyCrowdController _)
@@ -63,7 +67,7 @@ public class PlayerMovementController : MovementBase
         if (!canMove) return;
 
         // Move the object forward
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        _transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
         if (!canUserControl) return;
 
@@ -91,7 +95,7 @@ public class PlayerMovementController : MovementBase
         // Apply the swerve movement to the object's position
         Vector3 newPosition = transform.position + new Vector3(currentSwerveAmount * swerveSpeed * Time.deltaTime, 0f, 0f);
         newPosition.x = Mathf.Clamp(newPosition.x, minXPosition, maxXPosition);
-        transform.position = newPosition;
+        _transform.position = newPosition;
     }
 
     public void ActivateMovement()

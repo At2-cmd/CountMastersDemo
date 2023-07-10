@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
 
 public abstract class CrowdBase : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public abstract class CrowdBase : MonoBehaviour
     [Range(0, 1)] [SerializeField] protected float distanceFactor;
     [Range(0, 1)] [SerializeField] protected float radius;
     private Vector3 tempPos;
+    private float offset = .75f;
     protected int totalCrowdCount;
 
     protected virtual void CreateFormation(List<StickmanController> stickmanList)
@@ -33,7 +32,7 @@ public abstract class CrowdBase : MonoBehaviour
         stickman.Splat.SetActive(true);
         stickmanList.Remove(stickman);
         stickman.gameObject.SetActive(false);
-        stickman.transform.parent = stickman.InitialParent;
+        stickman.Transform.parent = stickman.InitialParent;
 
         if (stickmanList.Count <= 0)
         {
@@ -111,7 +110,7 @@ public abstract class CrowdBase : MonoBehaviour
         return cubesInRows;
     }
 
-    protected void CreateDynamicPyramidFormation(List<StickmanController> stickmanList ,float offset ,StairDetector stairDetector)
+    protected void CreateDynamicPyramidFormation(List<StickmanController> stickmanList ,StairDetector stairDetector)
     {
         GameObject stairDetectorObject;
         int numRows = CalculateNumRows(stickmanList.Count); // Calculate the number of rows in the pyramid (excluding the topmost cube)
@@ -121,19 +120,15 @@ public abstract class CrowdBase : MonoBehaviour
         for (int row = 0; row < numRows; row++)
         {
             stairDetectorObject = Instantiate(stairDetector.gameObject, transform);
-            stairDetectorObject.transform.localPosition = new Vector3(0, row * offset, 0);
+            stairDetectorObject.transform.localPosition = new Vector3(0, row * 1.5f, 0);
             stairDetectorObject.GetComponent<StairDetector>().IsTopDetector = true;
             int numUnitsInRow = unitsInRows[row];
-            if (numUnitsInRow == 0)
-            {
-                break;
-            }
 
             float rowOffset = (numUnitsInRow - 1) * offset * 0.5f;
 
             for (int col = 0; col < numUnitsInRow; col++)
             {
-                float x = col * offset - rowOffset;
+                float x = (col * offset) - rowOffset;
                 float y = 0.0f;
                 float z = 0.0f;
 
@@ -143,6 +138,12 @@ public abstract class CrowdBase : MonoBehaviour
                 unit.transform.DOLocalMove(position, .5f);
                 currentUnitIndex++;
             }
+
+            if (numUnitsInRow <= 1)
+            {
+                break;
+            }
+
             stairDetectorObject.GetComponent<StairDetector>().IsTopDetector = false;
         }
     }

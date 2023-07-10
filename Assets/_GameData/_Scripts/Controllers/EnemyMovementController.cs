@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovementController : MovementBase
 {
     private Vector3 _targetPosition;
-    private Collider collider;
+    private Collider _collider;
 
     private void OnEnable()
     {
@@ -15,14 +12,14 @@ public class EnemyMovementController : MovementBase
 
     private void Awake()
     {
-        collider = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerStateManager player))
         {
-            collider.enabled = false;
+            _collider.enabled = false;
             moveToTargetRoutine = StartCoroutine(MoveToFightTarget(_targetPosition, 3));
             SmoothLookAtTarget(_targetPosition);
         }

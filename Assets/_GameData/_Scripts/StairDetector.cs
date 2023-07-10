@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class StairDetector : MonoBehaviour
 {
-    private Collider collider;
+    private Collider _collider;
     private bool isTopDetector;
 
     public bool IsTopDetector { get => isTopDetector; set => isTopDetector = value; }
 
     private void Awake()
     {
-        collider = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
     }
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
@@ -24,7 +24,7 @@ public class StairDetector : MonoBehaviour
                 AudioReactor.Play(AudioReactor.lib.winSound);
                 return;
             }
-            collider.enabled = false;
+            _collider.enabled = false;
             transform.parent = null;
             EventManager.Instance.RaiseStairLineTouched(isTopDetector);
         }

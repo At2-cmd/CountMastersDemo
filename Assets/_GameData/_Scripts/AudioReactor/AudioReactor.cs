@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,27 +63,6 @@ public class AudioReactor : MonoBehaviour
 
         _playtimes[audioGroup] = Time.time;
         _instance.StartCoroutine(_instance.PlayAudio(audioGroup.Get_Clip(), audioGroup.Get_Vol(), audioGroup.Get_Pitch()));
-    }
-
-    public static void Play(AudioGroup audioGroup, float volume)
-    {
-        if (!isSoundActive)
-            return;
-
-        if (audioGroup.cooldown > 0 && _playtimes.TryGetValue(audioGroup, out float playtime))
-        {
-            if (Time.time - playtime < audioGroup.cooldown)
-                return;
-        }
-
-        _playtimes[audioGroup] = Time.time;
-        _instance.StartCoroutine(_instance.PlayAudio(audioGroup.Get_Clip(), volume, audioGroup.Get_Pitch()));
-    }
-
-    public static void PlayClip(AudioClip audioClip, float volume = 1.0f, float pitch = 1.0f)
-    {
-        if (isSoundActive)
-            _instance.StartCoroutine(_instance.PlayAudio(audioClip, volume, pitch));
     }
 
     private IEnumerator PlayAudio(AudioClip clip, float volume, float pitch)

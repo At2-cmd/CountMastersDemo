@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class PlayerCrowdController : CrowdBase
 {
-    public float cubeSize;
     [SerializeField] private StairDetector stairDetector;
     [SerializeField] private Transform stickmanParent;
 
@@ -33,24 +28,30 @@ public class PlayerCrowdController : CrowdBase
 
     public void GenerateCrowd(int amount , GateType gateType)
     {
-        if (gateType == GateType.Enhancer)
+        switch (gateType) 
         {
-            for (int i = 0; i < amount; i++)
-            {
-                GenerateUnit();
-            }
-            crowdUIController.UpdateGainedCrowdText("+", amount);
+            case GateType.Enhancer:
+                {
+                    for (int i = 0; i < amount; i++)
+                    {
+                        GenerateUnit();
+                    }
+                    crowdUIController.UpdateGainedCrowdText("+", amount);
+                    break;
+                }
+
+            case GateType.Multiplier:
+                {
+                    int loopAmount = totalCrowdCount * (amount - 1);
+                    for (int i = 0; i < loopAmount; i++)
+                    {
+                        GenerateUnit();
+                    }
+                    crowdUIController.UpdateGainedCrowdText("x", amount);
+                    break;
+                }
         }
 
-        else if (gateType == GateType.Multiplier)
-        {
-            int loopAmount = totalCrowdCount * (amount - 1);
-            for (int i = 0; i < loopAmount; i++)
-            {
-                GenerateUnit();
-            }
-            crowdUIController.UpdateGainedCrowdText("x", amount);
-        }
         crowdUIController.UpdateTotalCrowdText(totalCrowdCount);
         CreateFormation(stickmanList);
     }
@@ -60,16 +61,16 @@ public class PlayerCrowdController : CrowdBase
         totalCrowdCount++;
         GameObject obj = ObjectPooler.Instance.GetObjectFromPool(StickmanType.AllyStickman);
         StickmanController stickman = obj.GetComponent<StickmanController>();
-        obj.transform.parent = stickmanParent.transform;
-        obj.SetActive(true);
-        obj.transform.position = transform.position;
+        stickman.Transform.parent = stickmanParent.transform;
+        stickman.Transform.position = transform.position;
+        stickman.gameObject.SetActive(true);
         stickman.OnRunStateEnteredHandler();
         stickmanList.Add(stickman);
     }
 
     private void OnFinishPointReachedHandler()
     {
-        CreateDynamicPyramidFormation(stickmanList, cubeSize , stairDetector);
+        CreateDynamicPyramidFormation(stickmanList , stairDetector);
         crowdUIController.DisableObject();
     }
 

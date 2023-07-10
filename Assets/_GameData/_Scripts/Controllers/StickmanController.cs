@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -96,8 +93,8 @@ public class StickmanController : MonoBehaviour
     public void EnableFall()
     {
         _collider.enabled = false;
-        transform.DOMoveY(transform.position.y - 5, 1f);
-        transform.parent = initialParent;
+        _transform.DOMoveY(transform.position.y - 5, 1f);
+        _transform.parent = initialParent;
         crowdController.DestroyStickmanAtFall(this, _collider);
     }
 }
